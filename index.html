@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות אנכיות עומדות</title>
+    <title>כרטיסיות עומדות - כמו בתמונה</title>
     <style>
         * {
             margin: 0;
@@ -16,27 +16,24 @@
         }
         .container {
             display: flex;
-            flex-direction: column; /* מסדר את הכרטיסיות אחת מתחת לשנייה */
-            align-items: center;
+            justify-content: center;
+            align-items: flex-start;
             margin: 20px auto;
-            width: 90%;
-            max-width: 400px;
+            gap: 5px; /* מרווחים בין הכרטיסיות */
+            max-width: 90%;
         }
-        /* עיצוב הכרטיסייה כעמודה צרה וגבוהה */
+        /* עיצוב הכרטיסיות האנכיות */
         .card {
+            width: 100px;
+            height: 300px;
             background-color: #e0e0e0;
             border: 1px solid #ccc;
-            padding: 10px;
-            width: 100px; /* רוחב צר */
-            height: 300px; /* גובה גבוה */
-            margin: 10px 0;
             cursor: pointer;
-            text-align: center;
             display: flex;
-            align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            align-items: center;
             transition: background 0.3s, box-shadow 0.3s;
+            text-align: center;
         }
         .card:hover {
             background-color: #d0d0d0;
@@ -44,18 +41,18 @@
         }
         .card-title {
             font-size: 18px;
-            writing-mode: vertical-rl; /* טקסט אנכי */
-            transform: rotate(180deg); /* מסובב את הטקסט לקריאה נוחה */
+            writing-mode: vertical-rl; /* הופך את הטקסט לאנכי */
+            transform: rotate(180deg);
         }
-        /* עיצוב התוכן הנפתח */
+        /* תוכן נפתח מתחת לכל הכרטיסיות */
         .card-content {
-            display: none; /* תוכן מוסתר כברירת מחדל */
-            padding: 15px;
-            margin-top: 10px;
-            background-color: #ffffff;
+            display: none; /* מוסתר כברירת מחדל */
+            background-color: #fff;
+            padding: 20px;
             border: 1px solid #ccc;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             width: 100%;
+            margin-top: 10px;
             text-align: center;
         }
         .card-content img {
@@ -79,48 +76,52 @@
 <body>
 <div class="container">
     <!-- כרטיסייה 1 -->
-    <div class="card" onclick="toggleCard(this)">
+    <div class="card" onclick="openCardContent(0)">
         <div class="card-title">כרטיסייה 1</div>
-    </div>
-    <div class="card-content">
-        <img src="https://via.placeholder.com/400x200" alt="תמונה 1">
-        <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף מידע נוסף.</p>
-        <a href="#" class="btn">קרא עוד</a>
     </div>
 
     <!-- כרטיסייה 2 -->
-    <div class="card" onclick="toggleCard(this)">
+    <div class="card" onclick="openCardContent(1)">
         <div class="card-title">כרטיסייה 2</div>
-    </div>
-    <div class="card-content">
-        <img src="https://via.placeholder.com/400x200" alt="תמונה 2">
-        <p>תיאור לתמונה השנייה עם טקסט נוסף.</p>
-        <a href="#" class="btn">קרא עוד</a>
     </div>
 
     <!-- כרטיסייה 3 -->
-    <div class="card" onclick="toggleCard(this)">
+    <div class="card" onclick="openCardContent(2)">
         <div class="card-title">כרטיסייה 3</div>
     </div>
-    <div class="card-content">
-        <img src="https://via.placeholder.com/400x200" alt="תמונה 3">
-        <p>תיאור לתמונה השלישית.</p>
+</div>
+
+<!-- תוכן נפתח מתחת לכרטיסיות -->
+<div id="cardContents">
+    <div class="card-content" id="content-0">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
+        <p>תיאור עבור כרטיסייה 1. כאן מוצג מידע נוסף וכפתורים לפעולה.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-1">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
+        <p>תיאור עבור כרטיסייה 2. כאן מידע נוסף לתוכן של הכרטיסייה השנייה.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-2">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
+        <p>תיאור עבור כרטיסייה 3 עם אפשרויות שונות לתוכן.</p>
         <a href="#" class="btn">קרא עוד</a>
     </div>
 </div>
 
 <script>
-    // פונקציה לפתיחה/סגירה של כרטיסייה
-    function toggleCard(cardElement) {
-        // סוגר את כל התוכן
+    // פונקציה לפתיחת התוכן המתאים לכרטיסייה
+    function openCardContent(index) {
+        // מסתיר את כל התכנים
         document.querySelectorAll('.card-content').forEach(content => {
             content.style.display = 'none';
         });
 
-        // מציג את התוכן שמתחת לכרטיסייה שנלחצה
-        const nextContent = cardElement.nextElementSibling;
-        if (nextContent && nextContent.classList.contains('card-content')) {
-            nextContent.style.display = 'block';
+        // מציג את התוכן המתאים לפי האינדקס
+        const targetContent = document.getElementById(`content-${index}`);
+        if (targetContent) {
+            targetContent.style.display = 'block';
         }
     }
 </script>
