@@ -1,170 +1,143 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות עומדות עם צבעים</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק לימוד אנגלית</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            direction: rtl;
+            text-align: center;
+            background-color: #f3f3f3;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            max-width: 600px;
             margin: 20px auto;
-            gap: 5px; /* רווח בין הכרטיסיות */
-            max-width: 90%;
-        }
-        /* עיצוב כרטיסיות */
-        .card {
-            width: 100px;
-            height: 300px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-        /* צבעים לכרטיסיות */
-        .card:nth-child(1) { background-color: #ffcccc; }
-        .card:nth-child(2) { background-color: #ffebcc; }
-        .card:nth-child(3) { background-color: #ffffcc; }
-        .card:nth-child(4) { background-color: #ccffcc; }
-        .card:nth-child(5) { background-color: #ccefff; }
-        .card:nth-child(6) { background-color: #e0ccff; }
-        .card:nth-child(7) { background-color: #ffccff; }
-
-        .card-title {
-            font-size: 18px;
-            writing-mode: vertical-rl; /* טקסט אנכי */
-            transform: rotate(180deg);
-        }
-        .card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* תוכן נפתח */
-        .card-content {
-            display: none; /* מוסתר כברירת מחדל */
-            background-color: #fff;
+            background: #fff;
             padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            margin-top: 10px;
-            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .card-content img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
-        .btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* מציג את התוכן של כרטיסיית ברירת המחדל */
-        #content-3 {
+        .options button {
             display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: 2px solid #007bff;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .options button:hover {
+            background: white;
+            color: #007bff;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .result.correct {
+            color: green;
+        }
+        .result.wrong {
+            color: red;
+        }
+        .final-score {
+            margin-top: 30px;
+            font-size: 1.4em;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- 7 כרטיסיות -->
-    <div class="card" onclick="openCardContent(0)">
-        <div class="card-title">כרטיסייה 1</div>
+    <div class="container">
+        <h1>משחק לימוד אנגלית</h1>
+        <div id="game">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <div class="result" id="result"></div>
+        </div>
+        <div class="final-score" id="finalScore" style="display: none;"></div>
     </div>
-    <div class="card" onclick="openCardContent(1)">
-        <div class="card-title">כרטיסייה 2</div>
-    </div>
-    <div class="card" onclick="openCardContent(2)">
-        <div class="card-title">כרטיסייה 3</div>
-    </div>
-    <div class="card" onclick="openCardContent(3)">
-        <div class="card-title">כרטיסייה 4</div>
-    </div>
-    <div class="card" onclick="openCardContent(4)">
-        <div class="card-title">כרטיסייה 5</div>
-    </div>
-    <div class="card" onclick="openCardContent(5)">
-        <div class="card-title">כרטיסייה 6</div>
-    </div>
-    <div class="card" onclick="openCardContent(6)">
-        <div class="card-title">כרטיסייה 7</div>
-    </div>
-</div>
 
-<!-- התכנים הנפתחים -->
-<div id="cardContents">
-    <div class="card-content" id="content-0">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
-        <p>תוכן כרטיסייה 1.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-1">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
-        <p>תוכן כרטיסייה 2.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-2">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
-        <p>תוכן כרטיסייה 3.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-3">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 4">
-        <p>תוכן כרטיסייה 4 (פתוחה כברירת מחדל).</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-4">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 5">
-        <p>תוכן כרטיסייה 5.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-5">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 6">
-        <p>תוכן כרטיסייה 6.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-    <div class="card-content" id="content-6">
-        <img src="https://via.placeholder.com/600x200" alt="תמונה 7">
-        <p>תוכן כרטיסייה 7.</p>
-        <a href="#" class="btn">קרא עוד</a>
-    </div>
-</div>
+    <script>
+        const hebrewWords = [
+            { hebrew: "מים", correctAnswer: "water" },
+            { hebrew: "מטבח", correctAnswer: "kitchen" },
+            { hebrew: "חלב", correctAnswer: "milk" },
+            { hebrew: "ילדים", correctAnswer: "children" },
+            { hebrew: "עשרים", correctAnswer: "twenty" },
+            { hebrew: "אחד עשרה", correctAnswer: "eleven" },
+            { hebrew: "דג", correctAnswer: "fish" },
+            { hebrew: "לרחוץ", correctAnswer: "wash" }
+        ];
 
-<script>
-    // פונקציה לפתיחת התוכן המתאים לכרטיסייה
-    function openCardContent(index) {
-        // מסתיר את כל התכנים
-        document.querySelectorAll('.card-content').forEach(content => {
-            content.style.display = 'none';
-        });
+        let currentQuestion = 0;
+        let score = 0;
 
-        // מציג את התוכן המתאים
-        const targetContent = document.getElementById(`content-${index}`);
-        if (targetContent) {
-            targetContent.style.display = 'block';
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
         }
-    }
-</script>
+
+        function loadQuestion() {
+            if (currentQuestion >= hebrewWords.length) {
+                displayFinalScore();
+                return;
+            }
+
+            const word = hebrewWords[currentQuestion];
+            const options = shuffle([
+                word.correctAnswer,
+                ...shuffle(hebrewWords.map(w => w.correctAnswer).filter(ans => ans !== word.correctAnswer)).slice(0, 3)
+            ]);
+
+            document.getElementById("question").textContent = `תרגם את המילה: "${word.hebrew}"`;
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+
+            options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.addEventListener("click", () => checkAnswer(option, word.correctAnswer));
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById("result").textContent = "";
+        }
+
+        function checkAnswer(selected, correct) {
+            const result = document.getElementById("result");
+            if (selected === correct) {
+                result.textContent = "✅ תשובה נכונה! כל הכבוד!";
+                result.className = "result correct";
+                score++;
+            } else {
+                result.textContent = `❌ לא נכון. התשובה הנכונה היא: ${correct}`;
+                result.className = "result wrong";
+            }
+
+            currentQuestion++;
+            setTimeout(loadQuestion, 2000);
+        }
+
+        function displayFinalScore() {
+            document.getElementById("game").style.display = "none";
+            const finalScore = document.getElementById("finalScore");
+            finalScore.style.display = "block";
+            finalScore.textContent = `סיימת את המשחק! ציון סופי: ${score} מתוך ${hebrewWords.length}`;
+        }
+
+        // Shuffle questions for each game
+        shuffle(hebrewWords);
+        loadQuestion();
+    </script>
 </body>
 </html>
