@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות אקורדיון</title>
+    <title>כרטיסיות עומדות עם צבעים</title>
     <style>
         * {
             margin: 0;
@@ -13,73 +13,60 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             direction: rtl;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
         }
         .container {
             display: flex;
-            width: 100%;
-            max-width: 1200px;
-            height: 500px;
-            gap: 5px;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 20px auto;
+            gap: 5px; /* רווח בין הכרטיסיות */
+            max-width: 90%;
         }
+        /* עיצוב כרטיסיות */
         .card {
-            flex: 1;
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
+            width: 100px;
+            height: 300px;
+            border: 1px solid #ccc;
             cursor: pointer;
-            transition: all 0.5s ease;
-            overflow: hidden;
-            position: relative;
-        }
-        .card:nth-child(1) { background-color: #ff9999; }
-        .card:nth-child(2) { background-color: #ffcc99; }
-        .card:nth-child(3) { background-color: #ffff99; }
-        .card:nth-child(4) { background-color: #99ff99; }
-        .card:nth-child(5) { background-color: #99ccff; }
-        .card:nth-child(6) { background-color: #cc99ff; }
-        .card:nth-child(7) { background-color: #ff99cc; }
-
-        .card.active {
-            flex: 4;
-        }
-        .card-title {
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            color: white;
-            font-weight: bold;
-            opacity: 0.7;
-        }
-        .card-content {
-            display: none;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.9);
-            padding: 20px;
-            text-align: center;
-        }
-        .card.active .card-content {
-            display: block;
-        }
-        .card-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-        }
-        .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
+            align-items: center;
+            transition: background 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+        /* צבעים לכרטיסיות */
+        .card:nth-child(1) { background-color: #ffcccc; }
+        .card:nth-child(2) { background-color: #ffebcc; }
+        .card:nth-child(3) { background-color: #ffffcc; }
+        .card:nth-child(4) { background-color: #ccffcc; }
+        .card:nth-child(5) { background-color: #ccefff; }
+        .card:nth-child(6) { background-color: #e0ccff; }
+        .card:nth-child(7) { background-color: #ffccff; }
+
+        .card-title {
+            font-size: 18px;
+            writing-mode: vertical-rl; /* טקסט אנכי */
+            transform: rotate(180deg);
+        }
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* תוכן נפתח */
+        .card-content {
+            display: none; /* מוסתר כברירת מחדל */
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .card-content img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
         }
         .btn {
             display: inline-block;
@@ -88,103 +75,95 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
         }
         .btn:hover {
             background-color: #0056b3;
+        }
+
+        /* מציג את התוכן של כרטיסיית ברירת המחדל */
+        #content-3 {
+            display: block;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="card" onclick="toggleCard(0)">
+    <!-- 7 כרטיסיות -->
+    <div class="card" onclick="openCardContent(0)">
         <div class="card-title">כרטיסייה 1</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 1" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 1 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(1)">
+    <div class="card" onclick="openCardContent(1)">
         <div class="card-title">כרטיסייה 2</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 2" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 2 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(2)">
+    <div class="card" onclick="openCardContent(2)">
         <div class="card-title">כרטיסייה 3</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 3" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 3 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card active" onclick="toggleCard(3)">
+    <div class="card" onclick="openCardContent(3)">
         <div class="card-title">כרטיסייה 4</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 4" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 4 שמסביר על הנושא בצורה מעמיקה. זו הכרטיסייה הפתוחה כברירת מחדל.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(4)">
+    <div class="card" onclick="openCardContent(4)">
         <div class="card-title">כרטיסייה 5</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 5" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 5 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(5)">
+    <div class="card" onclick="openCardContent(5)">
         <div class="card-title">כרטיסייה 6</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 6" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 6 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
     </div>
-    <div class="card" onclick="toggleCard(6)">
+    <div class="card" onclick="openCardContent(6)">
         <div class="card-title">כרטיסייה 7</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/800x300" alt="תמונה 7" class="card-image">
-            <p>תוכן מפורט לכרטיסייה 7 שמסביר על הנושא בצורה מעמיקה.</p>
-            <div class="action-buttons">
-                <a href="#" class="btn">קרא עוד</a>
-                <a href="#" class="btn">התחל</a>
-            </div>
-        </div>
+    </div>
+</div>
+
+<!-- התכנים הנפתחים -->
+<div id="cardContents">
+    <div class="card-content" id="content-0">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
+        <p>תוכן כרטיסייה 1.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-1">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
+        <p>תוכן כרטיסייה 2.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-2">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
+        <p>תוכן כרטיסייה 3.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-3">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 4">
+        <p>תוכן כרטיסייה 4 (פתוחה כברירת מחדל).</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-4">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 5">
+        <p>תוכן כרטיסייה 5.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-5">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 6">
+        <p>תוכן כרטיסייה 6.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+    <div class="card-content" id="content-6">
+        <img src="https://via.placeholder.com/600x200" alt="תמונה 7">
+        <p>תוכן כרטיסייה 7.</p>
+        <a href="#" class="btn">קרא עוד</a>
     </div>
 </div>
 
 <script>
-    function toggleCard(index) {
-        const cards = document.querySelectorAll('.card');
-        
-        // Remove active class from all cards
-        cards.forEach(card => card.classList.remove('active'));
-        
-        // Add active class to clicked card
-        cards[index].classList.add('active');
+    // פונקציה לפתיחת התוכן המתאים לכרטיסייה
+    function openCardContent(index) {
+        // מסתיר את כל התכנים
+        document.querySelectorAll('.card-content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // מציג את התוכן המתאים
+        const targetContent = document.getElementById(`content-${index}`);
+        if (targetContent) {
+            targetContent.style.display = 'block';
+        }
     }
 </script>
 </body>
