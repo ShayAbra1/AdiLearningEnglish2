@@ -2,7 +2,7 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <title>כרטיסיות לאורך עם תוכן נפתח</title>
+    <title>כרטיסיות אנכיות עומדות</title>
     <style>
         * {
             margin: 0;
@@ -16,30 +16,113 @@
         }
         .container {
             display: flex;
-            flex-direction: column; /* שינוי למצב לאורך */
-            align-items: stretch; /* הפריטים יתפסו את כל הרוחב */
+            flex-direction: column; /* מסדר את הכרטיסיות אחת מתחת לשנייה */
+            align-items: center;
             margin: 20px auto;
             width: 90%;
-            max-width: 800px;
+            max-width: 400px;
         }
-        /* עיצוב כל כרטיסייה - לאורך */
+        /* עיצוב הכרטיסייה כעמודה צרה וגבוהה */
         .card {
             background-color: #e0e0e0;
             border: 1px solid #ccc;
             padding: 10px;
-            margin: 5px 0; /* רווח בין הכרטיסיות */
+            width: 100px; /* רוחב צר */
+            height: 300px; /* גובה גבוה */
+            margin: 10px 0;
             cursor: pointer;
-            transition: background 0.3s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, box-shadow 0.3s;
         }
         .card:hover {
             background-color: #d0d0d0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .card-title {
             font-size: 18px;
-            text-align: center;
+            writing-mode: vertical-rl; /* טקסט אנכי */
+            transform: rotate(180deg); /* מסובב את הטקסט לקריאה נוחה */
         }
         /* עיצוב התוכן הנפתח */
         .card-content {
             display: none; /* תוכן מוסתר כברירת מחדל */
             padding: 15px;
-           
+            margin-top: 10px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            text-align: center;
+        }
+        .card-content img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- כרטיסייה 1 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 1</div>
+    </div>
+    <div class="card-content">
+        <img src="https://via.placeholder.com/400x200" alt="תמונה 1">
+        <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף מידע נוסף.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+
+    <!-- כרטיסייה 2 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 2</div>
+    </div>
+    <div class="card-content">
+        <img src="https://via.placeholder.com/400x200" alt="תמונה 2">
+        <p>תיאור לתמונה השנייה עם טקסט נוסף.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+
+    <!-- כרטיסייה 3 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 3</div>
+    </div>
+    <div class="card-content">
+        <img src="https://via.placeholder.com/400x200" alt="תמונה 3">
+        <p>תיאור לתמונה השלישית.</p>
+        <a href="#" class="btn">קרא עוד</a>
+    </div>
+</div>
+
+<script>
+    // פונקציה לפתיחה/סגירה של כרטיסייה
+    function toggleCard(cardElement) {
+        // סוגר את כל התוכן
+        document.querySelectorAll('.card-content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // מציג את התוכן שמתחת לכרטיסייה שנלחצה
+        const nextContent = cardElement.nextElementSibling;
+        if (nextContent && nextContent.classList.contains('card-content')) {
+            nextContent.style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>
