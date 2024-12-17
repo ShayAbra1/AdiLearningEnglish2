@@ -1,131 +1,118 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>משחק לימוד אנגלית</title>
+    <title>כרטיסיות לאורך עם תוכן נפתח</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f3f3f3;
-            color: #333;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            direction: rtl;
         }
         .container {
-            max-width: 600px;
+            display: flex;
+            flex-direction: row; /* שינוי למצב לאורך */
+            align-items: flex-start; /* מתחיל מהקצה העליון */
             margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
         }
-        .question {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .options button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            font-size: 1em;
-            border: 2px solid #007bff;
-            background: #007bff;
-            color: white;
-            border-radius: 5px;
+        /* עיצוב כל כרטיסייה - לאורך */
+        .card {
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            flex: 1; /* כל כרטיסייה תקבל מקום שווה */
+            padding: 10px;
+            margin: 5px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background 0.3s;
         }
-        .options button:hover {
-            background: white;
-            color: #007bff;
+        .card:hover {
+            background-color: #d0d0d0;
         }
-        .result {
-            margin-top: 20px;
-            font-size: 1.2em;
+        .card-title {
+            font-size: 18px;
+            text-align: center;
         }
-        .result.correct {
-            color: green;
+        /* עיצוב התוכן הנפתח */
+        .card-content {
+            display: none; /* תוכן מוסתר כברירת מחדל */
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.5s ease-in-out;
         }
-        .result.wrong {
-            color: red;
+        .card-content img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
         }
-        .final-score {
-            margin-top: 30px;
-            font-size: 1.4em;
+        .card-content p {
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>משחק לימוד אנגלית</h1>
-        <div id="game">
-            <div class="question" id="question"></div>
-            <div class="options" id="options"></div>
-            <div class="result" id="result"></div>
+<div class="container">
+    <!-- כרטיסיות לאורך -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 1</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
+            <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף טקסט נוסף וכפתורים לפעולה.</p>
+            <a href="#" class="btn">קרא עוד</a>
         </div>
-        <div class="final-score" id="finalScore" style="display: none;"></div>
     </div>
-    <script>
-        const hebrewWords = [
-            { hebrew: "מים", correctAnswer: "water" },
-            { hebrew: "מטבח", correctAnswer: "kitchen" },
-            { hebrew: "חלב", correctAnswer: "milk" },
-            { hebrew: "ילדים", correctAnswer: "children" },
-            { hebrew: "עשרים", correctAnswer: "twenty" },
-            { hebrew: "אחד עשרה", correctAnswer: "eleven" },
-            { hebrew: "דג", correctAnswer: "fish" },
-            { hebrew: "לרחוץ", correctAnswer: "wash" }
-        ];
-        let currentQuestion = 0;
-        let score = 0;
-        function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
-        function loadQuestion() {
-            if (currentQuestion >= hebrewWords.length) {
-                displayFinalScore();
-                return;
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 2</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
+            <p>תיאור לתמונה השנייה עם מידע נוסף ופעולות נוספות.</p>
+            <a href="#" class="btn">קרא עוד</a>
+        </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">כרטיסייה 3</div>
+        <div class="card-content">
+            <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
+            <p>כאן ניתן להציג מידע שונה לכל כרטיסייה.</p>
+            <a href="#" class="btn">קרא עוד</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // פונקציה לפתיחה/סגירה של כרטיסייה
+    function toggleCard(cardElement) {
+        // סוגר כל תוכן אחר
+        document.querySelectorAll('.card-content').forEach(content => {
+            if (content.parentElement !== cardElement) {
+                content.style.display = 'none';
             }
-            const word = hebrewWords[currentQuestion];
-            const options = shuffle([
-                word.correctAnswer,
-                ...shuffle(hebrewWords.map(w => w.correctAnswer).filter(ans => ans !== word.correctAnswer)).slice(0, 3)
-            ]);
-            document.getElementById("question").textContent = `תרגם את המילה: "${word.hebrew}"`;
-            const optionsContainer = document.getElementById("options");
-            optionsContainer.innerHTML = "";
-            options.forEach(option => {
-                const button = document.createElement("button");
-                button.textContent = option;
-                button.addEventListener("click", () => checkAnswer(option, word.correctAnswer));
-                optionsContainer.appendChild(button);
-            });
-            document.getElementById("result").textContent = "";
-        }
-        function checkAnswer(selected, correct) {
-            const result = document.getElementById("result");
-            if (selected === correct) {
-                result.textContent = "✅ תשובה נכונה! כל הכבוד!";
-                result.className = "result correct";
-                score++;
-            } else {
-                result.textContent = `❌ לא נכון. התשובה הנכונה היא: ${correct}`;
-                result.className = "result wrong";
-            }
-            currentQuestion++;
-            setTimeout(loadQuestion, 2000);
-        }
-        function displayFinalScore() {
-            document.getElementById("game").style.display = "none";
-            const finalScore = document.getElementById("finalScore");
-            finalScore.style.display = "block";
-            finalScore.textContent = `סיימת את המשחק! ציון סופי: ${score} מתוך ${hebrewWords.length}`;
-        }
-        // Shuffle questions for each game
-        shuffle(hebrewWords);
-        loadQuestion();
-    </script>
+        });
+
+        // מציג/מסתיר את התוכן של הכרטיסייה שנלחצה
+        const content = cardElement.querySelector('.card-content');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
 </body>
 </html>
