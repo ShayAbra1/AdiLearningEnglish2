@@ -16,19 +16,18 @@
         }
         .container {
             display: flex;
-            flex-direction: row; /* שינוי למצב לאורך */
-            align-items: flex-start; /* מתחיל מהקצה העליון */
+            flex-direction: column; /* שינוי למצב לאורך */
+            align-items: stretch; /* הפריטים יתפסו את כל הרוחב */
             margin: 20px auto;
             width: 90%;
-            max-width: 1200px;
+            max-width: 800px;
         }
         /* עיצוב כל כרטיסייה - לאורך */
         .card {
             background-color: #e0e0e0;
             border: 1px solid #ccc;
-            flex: 1; /* כל כרטיסייה תקבל מקום שווה */
             padding: 10px;
-            margin: 5px;
+            margin: 5px 0; /* רווח בין הכרטיסיות */
             cursor: pointer;
             transition: background 0.3s;
         }
@@ -43,76 +42,4 @@
         .card-content {
             display: none; /* תוכן מוסתר כברירת מחדל */
             padding: 15px;
-            margin: 10px 0;
-            background-color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: all 0.5s ease-in-out;
-        }
-        .card-content img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .card-content p {
-            margin: 10px 0;
-        }
-        .btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <!-- כרטיסיות לאורך -->
-    <div class="card" onclick="toggleCard(this)">
-        <div class="card-title">כרטיסייה 1</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 1">
-            <p>תיאור לתמונה הראשונה. כאן תוכל להוסיף טקסט נוסף וכפתורים לפעולה.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-        <div class="card-title">כרטיסייה 2</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 2">
-            <p>תיאור לתמונה השנייה עם מידע נוסף ופעולות נוספות.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-        <div class="card-title">כרטיסייה 3</div>
-        <div class="card-content">
-            <img src="https://via.placeholder.com/600x200" alt="תמונה 3">
-            <p>כאן ניתן להציג מידע שונה לכל כרטיסייה.</p>
-            <a href="#" class="btn">קרא עוד</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    // פונקציה לפתיחה/סגירה של כרטיסייה
-    function toggleCard(cardElement) {
-        // סוגר כל תוכן אחר
-        document.querySelectorAll('.card-content').forEach(content => {
-            if (content.parentElement !== cardElement) {
-                content.style.display = 'none';
-            }
-        });
-
-        // מציג/מסתיר את התוכן של הכרטיסייה שנלחצה
-        const content = cardElement.querySelector('.card-content');
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-    }
-</script>
-</body>
-</html>
+           
